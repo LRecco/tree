@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import os
 import time
 import sys
+from os import walk, path, getcwd
 from pathlib import Path
 # Increase recursion limit to allow entire drives to be recursed through
 sys.setrecursionlimit(1500)
@@ -20,8 +20,8 @@ class FileTree:
         Get the parent directory for the given directory. 
         The equivalent of '../' in linux.
         """
-        relative_parent = os.path.join(dir, "..")
-        return os.path.abspath(relative_parent)
+        relative_parent = path.join(dir, "..")
+        return path.abspath(relative_parent)
 
     def get_child_count(self, dir: str):
         """
@@ -44,8 +44,8 @@ class FileTree:
         given directory, in a tree like structure.
         """
         count = 0
-        if os.path.exists(dir) and os.path.isdir(dir):
-            for root, dirs, files in os.walk(dir):
+        if path.exists(dir) and path.isdir(dir):
+            for root, dirs, files in walk(dir):
                 # Skip system folders such as the $Recycle.Bin
                 if "$" in root:
                     continue
@@ -54,10 +54,10 @@ class FileTree:
                 child_count = self.get_child_count(root + "\\a")
                 print("  " * child_count + root)
                 for file in files:
-                    fullpath = os.path.join(root, file)
+                    fullpath = path.join(root, file)
                     child_count = self.get_child_count(fullpath)
                     count += 1
-                    if os.path.isdir(fullpath):
+                    if path.isdir(fullpath):
                         print(("  " * child_count) + fullpath)
                     else:
                         print("  " * (child_count) + "|____" + fullpath)
@@ -95,7 +95,7 @@ def main():
             show_tree(dir)
             print()
     else:
-        starting_dir = os.getcwd()
+        starting_dir = getcwd()
         show_tree(starting_dir)
 
 
