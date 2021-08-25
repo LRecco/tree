@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os, time, sys
 from pathlib import Path
-sys.setrecursionlimit(1500) # Increase recursion limit to allow entire drives to be recursed through
+# Increase recursion limit to allow entire drives to be recursed through
+sys.setrecursionlimit(1500)
 
 
 class FileTree:
@@ -29,7 +30,8 @@ class FileTree:
             return 0
 
         count = 0
-        while (parent := self.get_parent(dir) + "\\") != self.starting_dir + "\\":
+        while (parent :=
+               self.get_parent(dir) + "\\") != self.starting_dir + "\\":
             count += 1
             dir = parent
         return count
@@ -39,7 +41,7 @@ class FileTree:
         Prints all directories and subdirectories of the 
         given directory, in a tree like structure.
         """
-        count = 0    
+        count = 0
         if os.path.exists(dir) and os.path.isdir(dir):
             for root, dirs, files in os.walk(dir):
                 # Skip system folders such as the $Recycle.Bin
@@ -68,6 +70,7 @@ def parse_arguments() -> list[str]:
     args = [arg for arg in sys.argv[1:]]
     return args
 
+
 def show_tree(starting_dir: str) -> None:
     """
     Starts a FileTree instance for the given 
@@ -75,7 +78,9 @@ def show_tree(starting_dir: str) -> None:
     """
     tree = FileTree(starting_dir)
     file_count = tree.print(starting_dir)
-    print("There were a total of {} files in {}".format(file_count, starting_dir))
+    print("There were a total of {} files in {}".format(
+        file_count, starting_dir))
+
 
 def main():
     """
@@ -90,6 +95,7 @@ def main():
     else:
         starting_dir = os.getcwd()
         show_tree(starting_dir)
+
 
 if __name__ == "__main__":
     start_time = time.time()
