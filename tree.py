@@ -58,9 +58,9 @@ class FileTree:
                     child_count = self.get_child_count(fullpath)
                     count += 1
                     if path.isdir(fullpath):
-                        print(("  " * child_count) + fullpath)
+                        print(("   " * child_count) + fullpath)
                     else:
-                        print("  " * (child_count) + "|____" + fullpath)
+                        print("   " * (child_count) + "|____" + fullpath)
         return count
 
 
